@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive</title>
+    <link rel="stylesheet" href="myAtom.css" />
+  </head>
+  <body onload="addElectronsInStore()">
+    <div class="main-div">
+      <div class="heading-instructions">
+        <div>1. Click on the shell in which you want to add the electron.</div>
+        <div>2. Click on the electron that should be added in that shell.</div>
+      </div>
+
+      <!-- <div class="atom-div"> -->
+      <div class="temp-outer-class shell shell-n n">
+        <div class="shell-name shell-name-n">N</div>
+        <div class="shell shell-m m" onclick="highlightShell('m')">
+          <div class="shell-name shell-name-m">M</div>
+          <div class="shell shell-l l" onclick="highlightShell('l')">
+            <div class="shell-name shell-name-l">L</div>
+            <div class="shell shell-k k" onclick="highlightShell('k')">
+              <div class="shell-name shell-name-k">K</div>
+              <div class="atom-center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+      <div class="electrons-box">
+        <div class="electron-text">Electrons</div>
+        <div class="electrons-div"></div>
+      </div>
+      <div class="flex">
+        <div class="btn btn-desktop" onclick="undoHandle()">Undo</div>
+        <div class="shell-btn-main">
+          <div class="shell-btn shell-btn-k k" onclick="highlightShell('k')">
+            <div>K</div>
+          </div>
+          <div class="shell-btn shell-btn-l l" onclick="highlightShell('l')">
+            <div>L</div>
+          </div>
+          <div class="shell-btn shell-btn-m m" onclick="highlightShell('m')">
+            <div>M</div>
+          </div>
+          <div class="shell-btn shell-btn-n n"><div>N</div></div>
+        </div>
+        <div class="btn btn-desktop" onclick="resetHandle()">Reset</div>
+      </div>
+      <div class="btn-mobile">
+        <div class="btn" onclick="undoHandle()">Undo</div>
+        <div class="btn" onclick="resetHandle()">Reset</div>
+      </div>
+    </div>
+  </body>
+  <script src="myAtom.js"></script>
+</html>
