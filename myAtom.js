@@ -1,6 +1,7 @@
 var selectedShell = "";
+var selectedElement;
 var shellNames = ["k", "l", "m", "n"];
-var electronsCount = 20;
+var electronsCount = 0;
 var electronDistanceFromCenter = {
   k: window.innerWidth > 768 ? "50px" : "37.5px", // width of k-shell / 2
   l: window.innerWidth > 768 ? "100px" : "75px",
@@ -42,6 +43,7 @@ function addHighlightShellClass(classes) {
 }
 
 function addElectronsInStore() {
+  checkForelectronNumber();
   var electronsStore = document.getElementsByClassName("electrons-div")[0];
   for (let i = 0; i < electronsCount; i++) {
     const div = document.createElement("div");
@@ -50,6 +52,23 @@ function addElectronsInStore() {
     div.onclick = shellElectronHandle;
     electronsStore.appendChild(div);
   }
+}
+
+function checkForelectronNumber() {
+  selectedElement = JSON.parse(localStorage.getItem("selectedElement"));
+  if (selectedElement.electrons > 0) {
+    electronsCount = selectedElement.electrons;
+    document.getElementById("selectedElementName").innerHTML =
+      selectedElement.name;
+    document.getElementById("selectedElementElectron").innerHTML =
+      " (" + selectedElement.electrons + ")";
+  } else {
+    window.location.href = "mainPage.html";
+  }
+}
+
+function changeElement() {
+  window.location.href = "mainPage.html";
 }
 
 function shellElectronHandle(event) {
