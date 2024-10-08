@@ -87,6 +87,11 @@ function shellElectronHandle(event) {
     return 0;
   }
 
+  if (!checkPreviousShellCapacity()) {
+    alert("Add electrons to previous shell first.");
+    return 0;
+  }
+
   event.target.classList.add("hide-electron");
   addElectronToShell(event.target.id);
 }
@@ -105,6 +110,21 @@ function checkElectronsCapacityInShell(electronCount) {
   return true;
 }
 
+function checkPreviousShellCapacity() {
+  if (selectedShell === "l") {
+    if (document.getElementsByClassName("k")[0].childElementCount === 2 + 2) {
+      return true;
+    }
+    return false;
+  } else if (selectedShell === "m") {
+    if (document.getElementsByClassName("l")[0].childElementCount === 8 + 2) {
+      return true;
+    }
+    return false;
+  }
+  return true;
+}
+
 function addElectronToShell(id) {
   var targetShell = document.getElementsByClassName(selectedShell)[0];
   var childCount = targetShell.childElementCount;
@@ -118,6 +138,7 @@ function addElectronToShell(id) {
   var distanceBetweenElectron = "0deg";
   var { distanceFromCenter, distanceBetweenElectron } = getDegreeAndDistance();
   electronToBeAdded.style.transform = `translate(-50%, -50%) rotate(calc(var(--i) * ${distanceBetweenElectron})) translate(${distanceFromCenter})`;
+  showCompletedStatus();
 }
 
 function getDegreeAndDistance() {
@@ -159,5 +180,21 @@ function undoHandle() {
     // remove electron from shell
     var electronShell = document.getElementsByClassName("temp-outer-class")[0];
     electronShell.querySelector(`#${lastElectronAdded}`).remove();
+  }
+  showCompletedStatus();
+}
+
+function showCompletedStatus() {
+  if (actionList.length === selectedElement.electrons) {
+    console.log("Atomic structure is completed");
+    document.getElementsByClassName("completed-status")[0].innerHTML =
+      "Atomic structure is completed";
+  } else {
+    console.log(
+      "Atomic structure is incompleted",
+
+      actionList
+    );
+    document.getElementsByClassName("completed-status")[0].innerHTML = "";
   }
 }
